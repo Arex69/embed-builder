@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@for $i from 3 through 7 {
+	@font-face {
+		font-family: "Whitney";
+		font-style: "normal";
+		font-weight: #{$i}00;
+		src: url("/font/whitney-#{$i}00.woff2") format("woff2"),
+			url("/font/whitney-#{$i}00.woff") format("woff");
+		font-display: "swap";
+	}
+}
+
+@layer base {
+	html,
+	body {
+		font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font-size: 16px;
+		line-height: 1.5;
+		color: #dcddde;
+		background-color: #2f3136;
+		accent-color: #00b0f4;
+	}
+
+	body {
+		max-height: 100vh;
+		overflow-y: hidden;
+	}
+
+	::-webkit-scrollbar {
+		width: 0.5rem;
+		height: 0.5rem;
+	}
+	::-webkit-scrollbar-track {
+		background: transparent;
+	}
+	::-webkit-scrollbar-thumb {
+		background: #202225;
+		border-radius: 0.5rem;
+	}
+	::-webkit-scrollbar-corner {
+		background: transparent;
+	}
+
+	::-webkit-resizer {
+		border-radius: 0.5rem;
+		background: #202225;
+	}
+
+	select {
+		@apply p-2 bg-[#292b2f] rounded cursor-pointer transition-colors border border-transparent
+			hover:border-[#40444b] focus:border-[#40444b] focus:outline-none;
+	}
+
+	::-webkit-color-swatch-wrapper {
+		padding: 0.5rem;
+		width: 3rem;
+	}
+	::-webkit-color-swatch {
+		border: none;
+	}
+
+	code,
+	pre {
+		font-family: "Consolas", "Andale Mono WT", "Andale Mono",
+			"Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono",
+			"Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L",
+			"Monaco", "Courier New", "Courier", "monospace";
+	}
+}
+
+@layer components {
+	.screen > * {
+		max-height: 100vh;
+		overflow-y: auto;
+	}
+
+	.embed-inputs {
+		@apply p-8;
+
+		label {
+			@apply text-white text-sm block mt-2;
+		}
+
+		textarea,
+		input[type="text"],
+		input[type="color"] {
+			@apply min-h-[2rem] w-full bg-[#2f3136] text-inherit px-4 py-2 rounded border border-transparent transition-colors
+				focus:outline-none focus:border focus:border-[#40444b];
+		}
+
+		textarea {
+			@apply h-48;
+		}
+
+		input[type="color"] {
+			@apply cursor-pointer w-fit p-0 transition-opacity;
+
+			&[disabled] {
+				@apply cursor-not-allowed opacity-50;
+			}
+		}
+
+		input[type="checkbox"] {
+			@apply h-6 w-6 appearance-none cursor-pointer bg-[#2f3136] border border-transparent relative rounded transition-colors
+				after:absolute after:inset-1 after:bg-transparent after:rounded-sm after:transition-colors;
+
+			&:hover,
+			&:focus {
+				@apply outline-none border-[#40444b];
+			}
+
+			&:checked {
+				@apply after:bg-[#00b0f4];
+			}
+		}
+
+		.limited-input {
+			@apply w-full;
+
+			input,
+			textarea {
+				@apply w-full block;
+			}
+		}
+
+		> * {
+			@apply bg-[#292b2f] mb-4 p-4 rounded;
+
+			> summary {
+				@apply flex cursor-pointer;
+
+				h2 {
+					@apply text-white font-semibold text-lg leading-none flex items-center
+						before:w-6 before:text-xs;
+
+					&::before {
+						content: "▶️";
+					}
+				}
+			}
+
+			&[open] > summary {
+				@apply mb-4;
+
+				h2::before {
+					content: "🔽";
+				}
+			}
+		}
+
+		> .fields > details {
+			@apply mt-4 w-full gap-2 items-end p-4 rounded border border-[#37393f];
+
+			> summary {
+				@apply flex flex-row justify-start items-center gap-2 cursor-pointer
+					before:w-4 before:text-xs;
+
+				&::before {
+					content: "▶️";
+				}
+			}
+
+			&[open] > summary {
+				@apply mb-4;
+
+				&::before {
+					content: "🔽";
+				}
+			}
+		}
+	}
+}
