@@ -52,10 +52,10 @@ export default function Output({ embed }: { embed: Embed }) {
 		if (embed.fields.length > 0) {
 			for (const field of embed.fields) {
 				if (field.inline) {
-					output += `{field: ${field.name} || ${field.value} || true}\n`.replace(/(^"|"$)/g, '')
+					output += `{field: ${field.name} && ${field.value} && true}\n`.replace(/(^"|"$)/g, '')
 					continue
 				}
-				output += `{field: ${field.name} || ${field.value}}\n`.replace(/(^"|"$)/g, '')
+				output += `{field: ${field.name} && ${field.value}}\n`.replace(/(^"|"$)/g, '')
 			}
 		}
 
