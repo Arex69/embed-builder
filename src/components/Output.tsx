@@ -33,7 +33,7 @@ export default function Output({ embed }: { embed: Embed }) {
 		if (embed.url) kwargs.push(`{url: ${embed.url}}\n`);
 		if (embed.description) kwargs.push(`{description: ${`${embed.description}`.replace(/(^"|"$)/g, '')}}\n`);
 		if (embed.color)
-			kwargs.push(`{color: ${embed.color.replace("#", "0x")}}\n`.replace(/(^"|"$)/g, ''));
+			kwargs.push(`{color: ${embed.color}}\n`.replace(/(^"|"$)/g, ''));
 		if (embed.timestamp) kwargs.push(`{timestamp}\n`);
 
 		output += `${kwargs.join(``)}`
